@@ -15,12 +15,18 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.DateFormat;
+import java.util.Date;
+
+import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
 public class DashBoardFragment extends Fragment {
 
@@ -151,6 +157,15 @@ public class DashBoardFragment extends Fragment {
                     edtNote.setError("Required Field");
                     return;
                 }
+
+                String id=mIncomeDatabase.push().getKey();
+                String mDate= DateFormat.getDateInstance().format(new Date());
+                Data data=new Data(ourammontint , type , note , id , mDate);
+                mIncomeDatabase.child(id).setValue(data);
+                Toast.makeText(getActivity() , "DATA ADDED" , Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+
+
             }
         });
 
@@ -163,4 +178,5 @@ public class DashBoardFragment extends Fragment {
 
         dialog.show();
     }
+
 }
