@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1023230707757",
+    "firebase_url": "https://life-tracker-7060e.firebaseio.com",
+    "project_id": "life-tracker-7060e",
+    "storage_bucket": "life-tracker-7060e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023230707757:android:61704a0663de2849d210a4",
+        "android_client_info": {
+          "package_name": "tw.pu.edu.gm.o1073011.lifetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023230707757-4oeofi4s95cpjh1g1ec9dalggpid2l80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.pu.edu.gm.o1073011.lifetracker",
+            "certificate_hash": "d7785c3334aaa93a04280687a26f3237ae2747d7"
+          }
+        },
+        {
+          "client_id": "1023230707757-uebknoek147rtkqe3so5h2ehv0o07jkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAStBDvJTfcjz_C8tbIx8qN7DSPGHrA_AY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023230707757-uebknoek147rtkqe3so5h2ehv0o07jkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
