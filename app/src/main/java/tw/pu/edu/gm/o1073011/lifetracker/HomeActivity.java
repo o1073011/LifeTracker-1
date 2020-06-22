@@ -25,8 +25,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private FrameLayout frameLayout;
 
     private DashBoardFragment dashBoardFragment;
-    /*private IncomeFragment incomeFragment;
-    private ExpenseFragment expenseFragment;*/
+    private IncomeFragment incomeFragment;
+    private ExpenseFragment expenseFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +58,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 switch (item.getItemId()) {
                     case R.id.dashboard:
                         setFragment(dashBoardFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
+                        //bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
                         return true;
 
                     case R.id.income:
-                        //setFragment (incomeFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.income_color);
+                        setFragment (incomeFragment);
+                        //bottomNavigationView.setItemBackgroundResource(R.color.income_color);
                         return true;
 
                     case R.id.expense:
-                        //setFragment (expenseFragment);
-                        bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
+                        setFragment (expenseFragment);
+                        //bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
                         return true;
                 }
 
@@ -77,8 +77,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
 
         dashBoardFragment = new DashBoardFragment();
-        //incomeFragment = new IncomeFragment();
-        //expenseFragment = new ExpenseFragment();
+        incomeFragment = new IncomeFragment();
+        expenseFragment = new ExpenseFragment();
 
         setFragment(dashBoardFragment);
     }
@@ -111,11 +111,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.income:
-                //fragment = new IncomeFragment();
+                fragment = new IncomeFragment();
                 break;
 
             case R.id.expense:
-                //fragment = new ExpenseFragment();
+                fragment = new ExpenseFragment();
                 break;
         }
 

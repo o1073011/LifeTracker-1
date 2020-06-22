@@ -32,8 +32,8 @@ public class IncomeFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private TextView incomeTotalSum;
-    incomeTotalSum = myview.findByViewId(R.id);
-     incomeTotalSum.setText(stTotalvale);
+//    incomeTotalSum = myview.findByViewId(R.id);
+//     incomeTotalSum.setText(stTotalvale);
 
 
     @Override
@@ -62,9 +62,9 @@ public class IncomeFragment extends Fragment {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot mysnapshot : dataSnapshot.getChildren()) {
-
-                }
+//                for (DataSnapshot mysnapshot : dataSnapshot.getChildren()) {
+//
+//                }
             }
 
             @Override
@@ -79,7 +79,8 @@ public class IncomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Data, MyViewHolder> adapter = new FirebaseRecyclerAdapter
+
+        FirebaseRecyclerAdapter<Data, MyViewHolder>adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>
                 (
                         Data.class,
                         R.layout.income_recycler_data,
@@ -87,14 +88,13 @@ public class IncomeFragment extends Fragment {
                         mIncomeDatabase
                 ) {
             @Override
-            protected void populateViewHolder(RecyclerView.ViewHolder viewHolder, Object o, int i) {
-                viewHolder.setType(model.getType());
-                viewHolder.setNote(model.getNote());
-                viewHolder.setDate(model.getDate());
-                viewHolder.setAmmount(model.getAmmount());
+            protected void populateViewHolder(MyViewHolder myViewHolder, Data data, int i) {
+                myViewHolder.setType(data.getType());
+                myViewHolder.setNote(data.getNote());
+                myViewHolder.setDate(data.getDate());
+                myViewHolder.setAmmount(data.getAmount());
             }
         };
-
         recyclerView.setAdapter(adapter);
     }
 

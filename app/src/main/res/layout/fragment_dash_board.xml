@@ -52,7 +52,7 @@
                         android:layout_height="wrap_content"
                         android:text="Expense"
                         android:textAppearance="@android:style/TextAppearance.Large"
-                        android:textColor="@android:color/holo_red_dark" />
+                        android:textColor="@android:color/black" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:text="0000.00"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@android:color/black" />
+                        android:textColor="@color/income_amount" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -90,7 +90,7 @@
                         android:layout_height="wrap_content"
                         android:text="0000.00"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@android:color/holo_red_dark" />
+                        android:textColor="@color/expense_ammount" />
                 </RelativeLayout>
 
             </LinearLayout>

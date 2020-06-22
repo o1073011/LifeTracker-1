@@ -20,6 +20,26 @@ public class Data {
         this.date = date;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
     public void setAmount(int amount) {
         this.amount = amount;
     }
