@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth=FirebaseAuth.getInstance();
-        //mDialog=new ProgressDialog(this);
+        mDialog=new ProgressDialog(this);
 
         loginDetails();
     }
@@ -65,18 +65,18 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                //mDialog.setMessage("Processing...");
-                //mDialog.show();
+                mDialog.setMessage("Processing...");
+                mDialog.show();
 
                 mAuth.signInWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            //mDialog.dismiss();
+                            mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         }else {
-                            //mDialog.dismiss();
+                            mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Login Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
