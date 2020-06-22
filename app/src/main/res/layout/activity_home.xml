@@ -14,15 +14,16 @@
         android:layout_height="match_parent"/>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/naView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:id="@+id/naView"
         android:fitsSystemWindows="true"
-        app:itemTextAppearance="@android:style/TextAppearance.Small"
+        app:headerLayout="@layout/nav_header"
         app:itemIconTint="@color/toolbar_color"
-        app:menu="@menu/navmenu"
-        app:headerLayout="@color/nav_header"/>
+        app:itemTextAppearance="@android:style/TextAppearance.Small"
+        app:itemTextColor="@color/nav_header"
+        app:menu="@menu/navmenu" />
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
