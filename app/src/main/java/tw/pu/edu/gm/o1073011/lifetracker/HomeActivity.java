@@ -17,7 +17,9 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeActivity extends AppCompatActivity
+        //implements NavigationView.OnNavigationItemSelectedListener
+{
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -25,7 +27,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar =findViewById(R.id.my_toolbar);
+        /*Toolbar toolbar =findViewById(R.id.my_toolbar);
         toolbar.setTitle("Life Tracker");
         setSupportActionBar(toolbar);
 
@@ -39,10 +41,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.naView);
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);*/
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
@@ -53,9 +55,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
 
-    }
+    }*/
 
-    public void displaySelectedListener (int itemId){
+    /*public void displaySelectedListener (int itemId){
         Fragment fragment = null;
 
         switch(itemId){
@@ -77,11 +79,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         displaySelectedListener(item.getItemId());
         return true;
-    }
+    }*/
 }
