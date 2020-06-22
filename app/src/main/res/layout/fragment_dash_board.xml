@@ -8,90 +8,90 @@
     android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-   <androidx.cardview.widget.CardView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:cardElevation="5dp"
-       android:elevation="10dp">
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical">
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal">
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textAppearance="@android:style/TextAppearance.Large"
-                       android:textColor="@android:color/black"
-                       android:text="Income"/>
-               </RelativeLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="5dp"
+        android:elevation="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Large"
+                        android:textColor="@android:color/black"
+                        android:text="Income"/>
+                </RelativeLayout>
 
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textAppearance="@android:style/TextAppearance.Large"
-                       android:textColor="@android:color/holo_red_dark"
-                       android:text="Expense"/>
-               </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@android:style/TextAppearance.Large"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:text="Expense"/>
+                </RelativeLayout>
 
-           </LinearLayout>
-           
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
-               android:layout_marginTop="7dp">
+            </LinearLayout>
 
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                       android:textColor="@android:color/black"
-                       android:text="0000.00"
-                       android:id="@+id/income_set_result"/>
-               </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="7dp">
 
-               <RelativeLayout
-                   android:layout_width="0dp"
-                   android:layout_height="wrap_content"
-                   android:gravity="center"
-                   android:layout_weight="1">
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                       android:textColor="@android:color/holo_red_dark"
-                       android:text="0000.00"
-                       android:id="@+id/expense_set_result"/>
-               </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/black"
+                        android:text="0000.00"
+                        android:id="@+id/income_set_result"/>
+                </RelativeLayout>
 
-           </LinearLayout>
-       </LinearLayout>
-   </androidx.cardview.widget.CardView>
-    
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:text="0000.00"
+                        android:id="@+id/expense_set_result"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-        
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -161,16 +161,17 @@
         </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fb_main_plus_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/fb_main_plus_btn"
             android:layout_gravity="bottom|end"
-            android:layout_marginBottom="16dp"
             android:layout_marginRight="20dp"
+            android:layout_marginBottom="16dp"
             android:backgroundTint="#6a1b9a"
-            app:fabSize="normal"
-            android:src="@drawable/income" />
+            android:src="@drawable/income"
+            app:fabSize="normal" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 
 </LinearLayout>
