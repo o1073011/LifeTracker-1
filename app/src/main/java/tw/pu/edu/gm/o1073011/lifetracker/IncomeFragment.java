@@ -32,8 +32,8 @@ public class IncomeFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private TextView incomeTotalSum;
-    incomeTotalSum = myview.findByViewId(R.id.income_txt_result);
-    incomeTotalSum.setText(stTotalvale);
+    incomeTotalSum = myview.findByViewId(R.id);
+     incomeTotalSum.setText(stTotalvale);
 
 
     @Override

@@ -2,11 +2,15 @@ package tw.pu.edu.gm.o1073011.lifetracker.Model;
 
 public class Data {
 
-    private  int amount;
-    private String type;
-    private String note;
-    private String id;
-    private String date;
+    public int amount;
+    public String type;
+    public String note;
+    public String id;
+    public String date;
+
+    public Data(){
+
+    }
 
     public Data(int amount, String type, String note, String id, String date) {
         this.amount = amount;
@@ -36,8 +40,6 @@ public class Data {
         this.date = date;
     }
 
-    public Data(){
 
-    }
 
 }
