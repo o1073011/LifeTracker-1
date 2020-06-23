@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -55,6 +57,9 @@ public class DashBoardFragment extends Fragment {
     private TextView totalIncomeResult;
     private TextView totalExpenseResult;
 
+    private RecyclerView mRecyclerIncome;
+    private RecyclerView mRecyclerExpense;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -81,6 +86,10 @@ public class DashBoardFragment extends Fragment {
 
         totalIncomeResult=myview.findViewById(R.id.income_set_result);
         totalExpenseResult=myview.findViewById(R.id.expense_set_result);
+
+        mRecyclerIncome=myview.findViewById(R.id.recycler_income);
+        mRecyclerExpense=myview.findViewById(R.id. recycler_expense);
+
 
         fab_main_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +156,18 @@ public class DashBoardFragment extends Fragment {
 
             }
         });
+
+        LinearLayoutManager layoutManagerIncome = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        layoutManagerIncome.setStackFromEnd(true);
+        layoutManagerIncome.setReverseLayout(true);
+        mRecyclerIncome.setHasFixedSize(true);
+        mRecyclerIncome.setLayoutManager(layoutManagerIncome);
+
+        LinearLayoutManager layoutManagerExpense = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        layoutManagerExpense.setStackFromEnd(true);
+        layoutManagerExpense.setReverseLayout(true);
+        mRecyclerIncome.setHasFixedSize(true);
+        mRecyclerIncome.setLayoutManager(layoutManagerExpense);
 
         return myview;
     }

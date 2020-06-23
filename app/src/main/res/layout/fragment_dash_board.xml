@@ -9,6 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="10dp"
@@ -97,9 +98,49 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Income"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_income"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Expense"
+                android:textAppearance="@android:style/TextAppearance.Large" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_expense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/container_layout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -109,17 +150,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="12dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="12dp"
-            android:layout_marginTop="8dp"
             android:clickable="true"
             android:src="@drawable/income"
             android:text="Add Data"
             app:backgroundTint="#6a1b9a"
             app:fabSize="normal"
-            app:rippleColor="@color/colorPrimaryDark"
-            />
+            app:rippleColor="@color/colorPrimaryDark" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
