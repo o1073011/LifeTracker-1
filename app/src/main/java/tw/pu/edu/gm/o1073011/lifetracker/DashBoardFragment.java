@@ -60,9 +60,9 @@ public class DashBoardFragment extends Fragment {
         String uid = mUser.getUid();
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        System.out.println("m income database :"+mIncomeDatabase.toString());
+        //System.out.println("m income database :"+mIncomeDatabase.toString());
         mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
-        System.out.println("m expense database: "+mExpenseDatabase.toString());
+        //System.out.println("m expense database: "+mExpenseDatabase.toString());
         //Floating button
         fab_main_btn = myview.findViewById(R.id.fb_main_plus_btn);
         fab_income_btn = myview.findViewById(R.id.income_Ft_btn);
@@ -147,7 +147,7 @@ public class DashBoardFragment extends Fragment {
         fab_expense_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("uang keluar");
+                //System.out.println("uang keluar");
                 expenseDataInsert();
             }
         });
@@ -205,7 +205,7 @@ public class DashBoardFragment extends Fragment {
                 }
 
                 String id = mIncomeDatabase.push().getKey();
-                System.out.println("ID = "+id);
+                //System.out.println("ID = "+id);
                 String mDate = DateFormat.getDateInstance().format(new Date());
 
                 Data data = new Data(ourammontint,type,note,id,mDate);
@@ -258,7 +258,7 @@ public class DashBoardFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("data 1");
+                //System.out.println("data 1");
                 String tmAmmount = amount.getText().toString().trim();
                 String tmtype = type.getText().toString().trim();
                 String tmnote = note.getText().toString().trim();

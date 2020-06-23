@@ -25,8 +25,6 @@ import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
 public class IncomeFragment extends Fragment {
 
-    //Firebase database
-    private FirebaseAuth mAuth;
     private DatabaseReference mIncomeDatabase;
 
     private RecyclerView recyclerView;
@@ -38,10 +36,13 @@ public class IncomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment_income, container, false);
-        mAuth = FirebaseAuth.getInstance();
+        //Firebase database
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser mUser = mAuth.getCurrentUser();
+        //System.out.println("mUser = " +mUser);
         String uid = mUser.getUid();
+        //System.out.println("uid = " +uid);
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
 
@@ -59,11 +60,12 @@ public class IncomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int totalvalue = 0;
-
+                System.out.println("totalvalue = "+totalvalue);
                 for (DataSnapshot mysnapshot: snapshot.getChildren()){
-                    Data data = snapshot.getValue(Data.class);
+                    Data data = mysnapshot.getValue(Data.class);
                     totalvalue +=data.getAmount();
                     String stTotalValue = String.valueOf(totalvalue);
+                    System.out.println("totalvalue = "+totalvalue);
                     incomeTotalSum.setText(stTotalValue);
                 }
             }
@@ -117,13 +119,12 @@ public class IncomeFragment extends Fragment {
             mNote.setText(note);
         }
 
-        private void setDate(String date) {
-
+        public void setDate(String date) {
             TextView mDate = mView.findViewById(R.id.date_txt_income);
             mDate.setText(date);
         }
 
-        private void setAmmount(int ammount) {
+        public void setAmmount(int ammount) {
 
             TextView mAmmount = mView.findViewById(R.id.ammount_txt_income);
             String stammount = String.valueOf(ammount);
