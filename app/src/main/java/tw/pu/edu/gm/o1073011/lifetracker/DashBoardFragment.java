@@ -3,6 +3,7 @@ package tw.pu.edu.gm.o1073011.lifetracker;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -20,8 +21,11 @@ import com.google.android.gms.common.util.JsonUtils;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Member;
 import java.text.DateFormat;
@@ -48,9 +52,11 @@ public class DashBoardFragment extends Fragment {
     private DatabaseReference mIncomeDatabase;
     private DatabaseReference mExpenseDatabase;
 
+    private TextView totalIncomeResult;
+    private TextView totalExpenseResult;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         isOpen = false;
         View myview = inflater.inflate(R.layout.fragment_dash_board, container, false);
@@ -60,9 +66,8 @@ public class DashBoardFragment extends Fragment {
         String uid = mUser.getUid();
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        //System.out.println("m income database :"+mIncomeDatabase.toString());
         mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
-        //System.out.println("m expense database: "+mExpenseDatabase.toString());
+
         //Floating button
         fab_main_btn = myview.findViewById(R.id.fb_main_plus_btn);
         fab_income_btn = myview.findViewById(R.id.income_Ft_btn);
@@ -73,6 +78,9 @@ public class DashBoardFragment extends Fragment {
 
         FadeOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_open);
         FadeClose = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_close);
+
+        totalIncomeResult=myview.findViewById(R.id.income_set_result);
+        totalExpenseResult=myview.findViewById(R.id.expense_set_result);
 
         fab_main_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +110,41 @@ public class DashBoardFragment extends Fragment {
                     fab_expense_txt.setVisibility(View.VISIBLE);
                     isOpen = true;
                 }
+            }
+        });
+
+        mIncomeDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int totalvalue = 0;
+                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+                    Data data = mysnapshot.getValue(Data.class);
+                    totalvalue +=data.getAmount();
+                    String stTotalValue = String.valueOf(totalvalue);
+                    totalIncomeResult.setText(stTotalValue);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        mExpenseDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int totalvalue = 0;
+                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+                    Data data = mysnapshot.getValue(Data.class);
+                    totalvalue += data.getAmount();
+                    String stTotalValue = String.valueOf(totalvalue);
+                    totalExpenseResult.setText(stTotalValue);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 

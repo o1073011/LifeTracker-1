@@ -79,7 +79,6 @@ public class IncomeFragment extends Fragment {
                     Data data = mysnapshot.getValue(Data.class);
                     totalvalue +=data.getAmount();
                     String stTotalValue = String.valueOf(totalvalue);
-                    System.out.println("totalvalue = "+totalvalue);
                     incomeTotalSum.setText(stTotalValue);
                 }
             }
