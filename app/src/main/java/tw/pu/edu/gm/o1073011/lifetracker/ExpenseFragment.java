@@ -25,7 +25,6 @@ import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
 public class ExpenseFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
     private DatabaseReference mExpenseDatabase;
 
     private RecyclerView recyclerView;
@@ -35,7 +34,7 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View myview = inflater.inflate(R.layout.fragment_expense, container, false);
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser mUser = mAuth.getCurrentUser();
         String uid = mUser.getUid();
@@ -101,23 +100,23 @@ public class ExpenseFragment extends Fragment {
         }
 
         public void setType(String type) {
-            TextView mType = mView.findViewById(R.id.type_txt_income);
+            TextView mType = mView.findViewById(R.id.type_txt_expense);
             mType.setText(type);
         }
 
         public void setNote(String note) {
-            TextView mNote = mView.findViewById(R.id.note_txt_income);
+            TextView mNote = mView.findViewById(R.id.note_txt_expense);
             mNote.setText(note);
         }
 
         public void setDate(String date) {
-            TextView mDate = mView.findViewById(R.id.date_txt_income);
+            TextView mDate = mView.findViewById(R.id.date_txt_expense);
             mDate.setText(date);
         }
 
         public void setAmmount(int ammount) {
 
-            TextView mAmmount = mView.findViewById(R.id.ammount_txt_income);
+            TextView mAmmount = mView.findViewById(R.id.ammount_txt_expense);
             String stammount = String.valueOf(ammount);
             mAmmount.setText(stammount);
         }

@@ -1,5 +1,6 @@
 package tw.pu.edu.gm.o1073011.lifetracker;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -31,6 +34,14 @@ public class IncomeFragment extends Fragment {
 
     private TextView incomeTotalSum;
 
+    private EditText edtAmmount;
+    private EditText edtType;
+    private EditText edtNote;
+
+    private Button btnUpdate;
+    private Button btnDelete;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,9 +51,7 @@ public class IncomeFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser mUser = mAuth.getCurrentUser();
-        //System.out.println("mUser = " +mUser);
         String uid = mUser.getUid();
-        //System.out.println("uid = " +uid);
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
 
@@ -60,7 +69,6 @@ public class IncomeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int totalvalue = 0;
-                System.out.println("totalvalue = "+totalvalue);
                 for (DataSnapshot mysnapshot: snapshot.getChildren()){
                     Data data = mysnapshot.getValue(Data.class);
                     totalvalue +=data.getAmount();
@@ -96,6 +104,12 @@ public class IncomeFragment extends Fragment {
                 myViewHolder.setNote(data.getNote());
                 myViewHolder.setDate(data.getDate());
                 myViewHolder.setAmmount(data.getAmount());
+                myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateDataItem();
+                    }
+                });
             }
         };
         recyclerView.setAdapter(adapter);
@@ -131,5 +145,37 @@ public class IncomeFragment extends Fragment {
             mAmmount.setText(stammount);
         }
 
+    }
+
+    private void updateDataItem(){
+        AlertDialog.Builder mydialog=new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater=LayoutInflater.from(getActivity());
+        View myview=inflater.inflate(R.layout.update_data_item,null);
+        mydialog.setView(myview);
+
+        edtAmmount=myview.findViewById(R.id.amount_edt);
+        edtType=myview.findViewById(R.id.type_edt);
+        edtNote=myview.findViewById(R.id.note_edt);
+
+        btnUpdate=myview.findViewById(R.id.btn_upd_Update);
+        btnDelete=myview.findViewById(R.id.btn_upd_Delete);
+
+        final AlertDialog dialog=mydialog.create();
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }

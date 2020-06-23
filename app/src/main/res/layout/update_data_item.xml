@@ -113,11 +113,11 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnSave"
+                        android:id="@+id/btn_upd_Delete"
                         android:textAppearance="@android:style/TextAppearance.Medium"
                         android:background="@color/nav_header"
                         android:textColor="@android:color/white"
-                        android:text="SAVE"/>
+                        android:text="DELETE"/>
 
                 </RelativeLayout>
                 <RelativeLayout
@@ -129,15 +129,16 @@
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:id="@+id/btnCancel"
+                        android:id="@+id/btn_upd_Update"
                         android:textAppearance="@android:style/TextAppearance.Medium"
                         android:background="@color/nav_header"
                         android:textColor="@android:color/white"
-                        android:text="CANCEL"/>
+                        android:text="UPDATE"/>
 
                 </RelativeLayout>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
