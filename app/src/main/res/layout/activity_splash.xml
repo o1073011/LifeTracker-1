@@ -4,6 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color3"
     tools:context=".SplashActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="300dp"
+        android:layout_height="180dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="LIFE TRACKER"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#FB5000"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
