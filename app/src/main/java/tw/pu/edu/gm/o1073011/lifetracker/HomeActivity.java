@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -125,6 +126,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     public void displaySelectedListener(int itemId) {
         Fragment fragment = null;
+        //Intent notes = new Intent(this, NoteActivity.class);
+        //Intent addnotes;
 
         switch (itemId) {
             case R.id.dashboard:
@@ -142,10 +145,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.notes:
                 fragment = new NoteFragment();
                 break;
-
-            case R.id.addNotes:
-                fragment = new AddNoteFragment();
-                break;
+//
+//            case R.id.addNotes:
+//                fragment = new AddNoteFragment();
+//                break;
 
             case R.id.logout:
                 mAuth.signOut();
