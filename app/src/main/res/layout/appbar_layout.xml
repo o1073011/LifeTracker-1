@@ -11,11 +11,12 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:layout_width="match_parent"
             android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/toolbar_color"
-            app:titleTextColor="@android:color/white"
-            android:layout_height="wrap_content">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:titleTextColor="@android:color/white">
 
         </androidx.appcompat.widget.Toolbar>
 

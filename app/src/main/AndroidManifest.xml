@@ -21,9 +21,7 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".RegistrationActivity" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
