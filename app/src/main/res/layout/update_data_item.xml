@@ -11,7 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -26,7 +25,40 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="AMOUNT:"/>
+                        android:text="DATE"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:layout_margin="10dp"
+                    >
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date_edt"
+                        android:inputType="date"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:longClickable="false"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="AMOUNT"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -55,7 +87,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TYPE:"/>
+                        android:text="TYPE"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -84,7 +116,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="NOTE:"/>
+                        android:text="NOTE"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="0dp"

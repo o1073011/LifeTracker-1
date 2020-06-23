@@ -4,6 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResetActivity">
+    android:background="@drawable/background_color3"
+    tools:context=".ResetActivity"
+    android:padding="15dp">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Forgot Password"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/email_reset"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:layout_editor_absoluteX="0dp"
+        android:layout_margin="10dp"/>
+
+    <EditText
+        android:id="@+id/email_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background3"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:padding="15dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_reset"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_margin="10dp"/>
+
+    <Button
+        android:id="@+id/btn_reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edittext_background3"
+        android:text="Reset Password"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_reset"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_margin="10dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

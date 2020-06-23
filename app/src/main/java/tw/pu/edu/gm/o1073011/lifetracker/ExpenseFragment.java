@@ -1,11 +1,13 @@
 package tw.pu.edu.gm.o1073011.lifetracker;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,7 +26,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
@@ -39,15 +44,16 @@ public class ExpenseFragment extends Fragment {
     private EditText edtAmmount;
     private EditText edtType;
     private EditText edtNote;
-
-    private Button btnUpdate;
-    private Button btnDelete;
+    private EditText edtDate;
 
     private String type;
     private String note;
     private int amount;
+    private String date;
 
     private String post_key;
+
+    Calendar myCalendar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -111,6 +117,7 @@ public class ExpenseFragment extends Fragment {
 
                         type = data.getType();
                         note = data.getNote();
+                        date = data.getDate();
                         amount = data.getAmount();
                         updateDataItem();
                     }
@@ -158,6 +165,31 @@ public class ExpenseFragment extends Fragment {
         View myview=inflater.inflate(R.layout.update_data_item,null);
         mydialog.setView(myview);
 
+        myCalendar = Calendar.getInstance();
+        edtDate = myview.findViewById(R.id.date_edt);
+        edtDate.setText(date);
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "MMM dd, yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
+                edtDate.setText(simpleDateFormat.format(myCalendar.getTime()));
+            }
+        };
+
+        edtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         edtAmmount=myview.findViewById(R.id.amount_edt);
         edtType=myview.findViewById(R.id.type_edt);
         edtNote=myview.findViewById(R.id.note_edt);
@@ -171,8 +203,8 @@ public class ExpenseFragment extends Fragment {
         edtAmmount.setText(String.valueOf(amount));
         edtAmmount.setSelection(String.valueOf(amount).length());
 
-        btnUpdate=myview.findViewById(R.id.btn_upd_Update);
-        btnDelete=myview.findViewById(R.id.btn_upd_Delete);
+        Button btnUpdate = myview.findViewById(R.id.btn_upd_Update);
+        Button btnDelete = myview.findViewById(R.id.btn_upd_Delete);
 
         final AlertDialog dialog=mydialog.create();
 
@@ -186,7 +218,7 @@ public class ExpenseFragment extends Fragment {
                 mdammount=edtAmmount.getText().toString().trim();
                 int myAmount=Integer.parseInt(mdammount);
 
-                String mDate= DateFormat.getDateInstance().format(new Date());
+                String mDate= edtDate.getText().toString()/*DateFormat.getDateInstance().format(new Date())*/;
 
                 Data data = new Data(myAmount,type,note,post_key,mDate);
                 mExpenseDatabase.child(post_key).setValue(data);

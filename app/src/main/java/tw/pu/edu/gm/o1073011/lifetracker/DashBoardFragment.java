@@ -1,6 +1,7 @@
 package tw.pu.edu.gm.o1073011.lifetracker;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
@@ -60,6 +65,44 @@ public class DashBoardFragment extends Fragment {
     private RecyclerView mRecyclerExpense;
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter<Data, IncomeViewHolder> incomeAdapter = new FirebaseRecyclerAdapter<Data, IncomeViewHolder>
+                (
+                        Data.class,
+                        R.layout.dashboard_income,
+                        DashBoardFragment.IncomeViewHolder.class,
+                        mIncomeDatabase
+                ) {
+            @Override
+            protected void populateViewHolder(IncomeViewHolder incomeViewHolder, Data data, int i) {
+                incomeViewHolder.setIncomeType(data.getType());
+                incomeViewHolder.setIncomeAmount(data.getAmount());
+                incomeViewHolder.setIncomeDate(data.getDate());
+            }
+        };
+
+        FirebaseRecyclerAdapter<Data, ExpenseViewHolder> expenseAdapter = new FirebaseRecyclerAdapter<Data, ExpenseViewHolder>
+                (
+                        Data.class,
+                        R.layout.dashboard_expense,
+                        DashBoardFragment.ExpenseViewHolder.class,
+                        mExpenseDatabase
+                ) {
+            @Override
+            protected void populateViewHolder(ExpenseViewHolder expenseViewHolder, Data data, int i) {
+                expenseViewHolder.setExpenseType(data.getType());
+                expenseViewHolder.setExpenseAmount(data.getAmount());
+                expenseViewHolder.setExpenseDate(data.getDate());
+            }
+        };
+
+        mRecyclerIncome.setAdapter(incomeAdapter);
+        mRecyclerExpense.setAdapter(expenseAdapter);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         isOpen = false;
@@ -83,11 +126,11 @@ public class DashBoardFragment extends Fragment {
         FadeOpen = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_open);
         FadeClose = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_close);
 
-        totalIncomeResult=myview.findViewById(R.id.income_set_result);
-        totalExpenseResult=myview.findViewById(R.id.expense_set_result);
+        totalIncomeResult = myview.findViewById(R.id.income_set_result);
+        totalExpenseResult = myview.findViewById(R.id.expense_set_result);
 
-        mRecyclerIncome=myview.findViewById(R.id.recycler_income);
-        mRecyclerExpense=myview.findViewById(R.id. recycler_expense);
+        mRecyclerIncome = myview.findViewById(R.id.recycler_income);
+        mRecyclerExpense = myview.findViewById(R.id.recycler_expense);
 
 
         fab_main_btn.setOnClickListener(new View.OnClickListener() {
@@ -125,9 +168,9 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int totalvalue = 0;
-                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+                for (DataSnapshot mysnapshot : snapshot.getChildren()) {
                     Data data = mysnapshot.getValue(Data.class);
-                    totalvalue +=data.getAmount();
+                    totalvalue += data.getAmount();
                     String stTotalValue = String.valueOf(totalvalue);
                     totalIncomeResult.setText(stTotalValue);
                 }
@@ -142,7 +185,7 @@ public class DashBoardFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int totalvalue = 0;
-                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+                for (DataSnapshot mysnapshot : snapshot.getChildren()) {
                     Data data = mysnapshot.getValue(Data.class);
                     totalvalue += data.getAmount();
                     String stTotalValue = String.valueOf(totalvalue);
@@ -156,13 +199,13 @@ public class DashBoardFragment extends Fragment {
             }
         });
 
-        LinearLayoutManager layoutManagerIncome = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager layoutManagerIncome = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         layoutManagerIncome.setStackFromEnd(true);
         layoutManagerIncome.setReverseLayout(true);
         mRecyclerIncome.setHasFixedSize(true);
         mRecyclerIncome.setLayoutManager(layoutManagerIncome);
 
-        LinearLayoutManager layoutManagerExpense = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager layoutManagerExpense = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         layoutManagerExpense.setStackFromEnd(true);
         layoutManagerExpense.setReverseLayout(true);
         mRecyclerExpense.setHasFixedSize(true);
@@ -216,24 +259,44 @@ public class DashBoardFragment extends Fragment {
         });
     }
 
-
     public void incomeDataInsert() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View myview = inflater.inflate(R.layout.custom_layout_for_insert, null);
 
         myDialog.setView(myview);
-        //System.out.println("masuk 1");
         final AlertDialog dialog = myDialog.create();
-        //System.out.println("masuk 2");
         dialog.setCancelable(true);
 
+        final Calendar myCalendar = Calendar.getInstance();
+        final EditText edtdate = myview.findViewById(R.id.date_edt);
+
+        edtdate.setText(DateFormat.getDateInstance().format(new Date()));
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "MMM dd, yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
+                edtdate.setText(simpleDateFormat.format(myCalendar.getTime()));
+            }
+        };
+
+        edtdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
         final EditText edtAmount = myview.findViewById(R.id.amount_edt);
-        //System.out.println("amount:"+edtAmount.getText());
         final EditText edtType = myview.findViewById(R.id.type_edt);
-        //System.out.println("type:"+edtType.getText());
         final EditText edtNote = myview.findViewById(R.id.note_edt);
-        //System.out.println("note:"+edtNote.getText());
 
         Button btnSave = myview.findViewById(R.id.btnSave);
         Button btnCancel = myview.findViewById(R.id.btnCancel);
@@ -242,13 +305,9 @@ public class DashBoardFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                //System.out.println("masuk on click");
                 String type = edtType.getText().toString().trim();
-                //System.out.println("type string:"+type);
                 String amount = edtAmount.getText().toString().trim();
-                //System.out.println("type amount:"+amount);
                 String note = edtNote.getText().toString().trim();
-                //System.out.println("type note:"+note);
 
                 if (TextUtils.isEmpty(type)) {
                     edtType.setError("Required Field");
@@ -268,10 +327,9 @@ public class DashBoardFragment extends Fragment {
                 }
 
                 String id = mIncomeDatabase.push().getKey();
-                //System.out.println("ID = "+id);
-                String mDate = DateFormat.getDateInstance().format(new Date());
+                String mDate = /*DateFormat.getDateInstance().format(new Date())*/ edtdate.getText().toString();
 
-                Data data = new Data(ourammontint,type,note,id,mDate);
+                Data data = new Data(ourammontint, type, note, id, mDate);
                 data.setAmount(ourammontint);
                 data.setType(type);
                 data.setDate(mDate);
@@ -305,14 +363,37 @@ public class DashBoardFragment extends Fragment {
 
         myDialog.setView(myview);
         final AlertDialog dialog = myDialog.create();
-
-
         dialog.setCancelable(true);
+
+        final Calendar myCalendar = Calendar.getInstance();
+        final EditText edtdate = myview.findViewById(R.id.date_edt);
+
+        edtdate.setText(DateFormat.getDateInstance().format(new Date()));
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, month);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "MMM dd, yyyy";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(myFormat, Locale.US);
+                edtdate.setText(simpleDateFormat.format(myCalendar.getTime()));
+            }
+        };
+
+        edtdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(getActivity(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         final EditText amount = myview.findViewById(R.id.amount_edt);
         final EditText type = myview.findViewById(R.id.type_edt);
         final EditText note = myview.findViewById(R.id.note_edt);
-
 
 
         Button btnSave = myview.findViewById(R.id.btnSave);
@@ -344,7 +425,7 @@ public class DashBoardFragment extends Fragment {
                 }
 
                 String id = mExpenseDatabase.push().getKey();
-                String mDate = DateFormat.getDateInstance().format(new Date());
+                String mDate = edtdate.getText().toString()/*DateFormat.getDateInstance().format(new Date())*/;
 
                 Data data = new Data(inAmmount, tmtype, tmnote, id, mDate);
                 mExpenseDatabase.child(id).setValue(data);
@@ -362,47 +443,12 @@ public class DashBoardFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-       dialog.show();
+        dialog.show();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-        FirebaseRecyclerAdapter<Data, IncomeViewHolder>incomeAdapter = new FirebaseRecyclerAdapter<Data, IncomeViewHolder>
-                (
-                        Data.class,
-                        R.layout.dashboard_income,
-                        DashBoardFragment.IncomeViewHolder.class,
-                        mIncomeDatabase
-                ) {
-            @Override
-            protected void populateViewHolder(IncomeViewHolder incomeViewHolder, Data data, int i) {
-                incomeViewHolder.setIncomeType(data.getType());
-                incomeViewHolder.setIncomeAmount(data.getAmount());
-                incomeViewHolder.setIncomeDate(data.getDate());
-            }
-        };
-        mRecyclerIncome.setAdapter(incomeAdapter);
 
-        FirebaseRecyclerAdapter<Data, ExpenseViewHolder> expenseAdapter = new FirebaseRecyclerAdapter<Data, ExpenseViewHolder>(
-                Data.class,
-                R.layout.dashboard_expense,
-                DashBoardFragment.ExpenseViewHolder.class,
-                mExpenseDatabase
-        ) {
-            @Override
-            protected void populateViewHolder(ExpenseViewHolder expenseViewHolder, Data data, int i) {
-                expenseViewHolder.setIncomeType(data.getType());
-                expenseViewHolder.setIncomeAmount(data.getAmount());
-                expenseViewHolder.setIncomeDate(data.getDate());
-            }
-        };
-
-        mRecyclerExpense.setAdapter(expenseAdapter);
-    }
-
-    public static class IncomeViewHolder extends RecyclerView.ViewHolder{
+    public static class IncomeViewHolder extends RecyclerView.ViewHolder {
 
         View mIncomeView;
 
@@ -411,24 +457,24 @@ public class DashBoardFragment extends Fragment {
             mIncomeView = itemView;
         }
 
-        public void setIncomeType(String type){
+        public void setIncomeType(String type) {
             TextView mtype = mIncomeView.findViewById(R.id.type_Income_ds);
             mtype.setText(type);
         }
 
-        public void setIncomeAmount(int amount){
-            TextView mAmount=mIncomeView.findViewById(R.id.amount_Income_ds);
-            String strAmount=String.valueOf(amount);
+        public void setIncomeAmount(int amount) {
+            TextView mAmount = mIncomeView.findViewById(R.id.amount_Income_ds);
+            String strAmount = String.valueOf(amount);
             mAmount.setText(strAmount);
         }
 
-        public void setIncomeDate(String date){
-            TextView mDate=mIncomeView.findViewById(R.id.date_income_ds);
+        public void setIncomeDate(String date) {
+            TextView mDate = mIncomeView.findViewById(R.id.date_income_ds);
             mDate.setText(date);
         }
     }
 
-    public static class ExpenseViewHolder extends RecyclerView.ViewHolder{
+    public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         View mExpenseView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
@@ -436,19 +482,19 @@ public class DashBoardFragment extends Fragment {
             mExpenseView = itemView;
         }
 
-        public void setIncomeType(String type){
-            TextView mtype = mExpenseView.findViewById(R.id.type_Income_ds);
+        public void setExpenseType(String type) {
+            TextView mtype = mExpenseView.findViewById(R.id.type_Expense_ds);
             mtype.setText(type);
         }
 
-        public void setIncomeAmount(int amount){
-            TextView mAmount=mExpenseView.findViewById(R.id.amount_Income_ds);
-            String strAmount=String.valueOf(amount);
+        public void setExpenseAmount(int amount) {
+            TextView mAmount = mExpenseView.findViewById(R.id.amount_expense_ds);
+            String strAmount = String.valueOf(amount);
             mAmount.setText(strAmount);
         }
 
-        public void setIncomeDate(String date){
-            TextView mDate=mExpenseView.findViewById(R.id.date_income_ds);
+        public void setExpenseDate(String date) {
+            TextView mDate = mExpenseView.findViewById(R.id.date_expense_ds);
             mDate.setText(date);
         }
     }
