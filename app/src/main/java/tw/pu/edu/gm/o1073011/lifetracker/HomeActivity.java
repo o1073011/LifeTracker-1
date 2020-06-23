@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Adapter;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
@@ -29,6 +30,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DashBoardFragment dashBoardFragment;
     private IncomeFragment incomeFragment;
     private ExpenseFragment expenseFragment;
+
+
 
     private FirebaseAuth mAuth;
 
@@ -48,6 +51,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         );
 
         drawerLayout.addDrawerListener(toggle);
+        toggle.setDrawerIndicatorEnabled(true);
         toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.naView);
@@ -122,6 +126,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
             case R.id.expense:
                 fragment = new ExpenseFragment();
+                break;
+
+            case R.id.notes:
+                fragment = new NoteFragment();
+                break;
+
+            case R.id.addNotes:
+                fragment = new AddNoteFragment();
                 break;
 
             case R.id.logout:

@@ -29,10 +29,6 @@
                 android:id="@+id/addNotes"
                 android:title="Add Note"
                 android:icon="@drawable/ic_baseline_add_circle_24"></item>
-            <item
-                android:id="@+id/sync"
-                android:title="Sync"
-                android:icon="@drawable/ic_baseline_sync_24"></item>
         </menu>
     </item>
     <item android:title="Log Out">
