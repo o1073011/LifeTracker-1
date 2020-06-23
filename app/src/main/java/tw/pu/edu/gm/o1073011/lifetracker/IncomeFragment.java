@@ -2,18 +2,17 @@ package tw.pu.edu.gm.o1073011.lifetracker;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
 
@@ -41,10 +43,15 @@ public class IncomeFragment extends Fragment {
     private Button btnUpdate;
     private Button btnDelete;
 
+    private String type;
+    private String note;
+    private int amount;
+
+    private String post_key;
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment_income, container, false);
         //Firebase database
@@ -54,7 +61,6 @@ public class IncomeFragment extends Fragment {
         String uid = mUser.getUid();
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-
         recyclerView = myview.findViewById(R.id.recyler_id_income);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -99,7 +105,7 @@ public class IncomeFragment extends Fragment {
                         mIncomeDatabase
                 ) {
             @Override
-            protected void populateViewHolder(MyViewHolder myViewHolder, Data data, int i) {
+            protected void populateViewHolder(MyViewHolder myViewHolder, final Data data, final int i) {
                 myViewHolder.setType(data.getType());
                 myViewHolder.setNote(data.getNote());
                 myViewHolder.setDate(data.getDate());
@@ -107,6 +113,11 @@ public class IncomeFragment extends Fragment {
                 myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        post_key = getRef(i).getKey();
+
+                        type = data.getType();
+                        note = data.getNote();
+                        amount = data.getAmount();
                         updateDataItem();
                     }
                 });
@@ -148,14 +159,23 @@ public class IncomeFragment extends Fragment {
     }
 
     private void updateDataItem(){
-        AlertDialog.Builder mydialog=new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater=LayoutInflater.from(getActivity());
-        View myview=inflater.inflate(R.layout.update_data_item,null);
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(getActivity());
+        LayoutInflater inflater = LayoutInflater.from(getActivity());
+        View myview = inflater.inflate(R.layout.update_data_item, null);
         mydialog.setView(myview);
 
         edtAmmount=myview.findViewById(R.id.amount_edt);
         edtType=myview.findViewById(R.id.type_edt);
         edtNote=myview.findViewById(R.id.note_edt);
+
+        edtType.setText(type);
+        edtType.setSelection(type.length());
+
+        edtNote.setText(note);
+        edtNote.setSelection(note.length());
+
+        edtAmmount.setText(String.valueOf(amount));
+        edtAmmount.setSelection(String.valueOf(amount).length());
 
         btnUpdate=myview.findViewById(R.id.btn_upd_Update);
         btnDelete=myview.findViewById(R.id.btn_upd_Delete);
@@ -165,17 +185,29 @@ public class IncomeFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                type=edtType.getText().toString().trim();
+                note=edtNote.getText().toString().trim();
 
+                String mdammount=String.valueOf(amount);
+                mdammount=edtAmmount.getText().toString().trim();
+                int myAmount=Integer.parseInt(mdammount);
+
+                String mDate= DateFormat.getDateInstance().format(new Date());
+
+                Data data = new Data(myAmount,type,note,post_key,mDate);
+                mIncomeDatabase.child(post_key).setValue(data);
+
+                dialog.dismiss();
             }
         });
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mIncomeDatabase.child(post_key).removeValue();
                 dialog.dismiss();
             }
         });
-
         dialog.show();
     }
 }
