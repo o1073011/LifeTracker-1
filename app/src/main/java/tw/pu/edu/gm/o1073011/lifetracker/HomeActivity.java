@@ -15,16 +15,18 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationMenu;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView bottomNavigationView;
-    private FrameLayout frameLayout;
 
     private DashBoardFragment dashBoardFragment;
     private IncomeFragment incomeFragment;
@@ -64,7 +66,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         emailtxt.setText(email);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationBar);
-        frameLayout = findViewById(R.id.main_frame);
+        FrameLayout frameLayout = findViewById(R.id.main_frame);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
