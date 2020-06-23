@@ -25,10 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import tw.pu.edu.gm.o1073011.lifetracker.Model.Data;
@@ -67,7 +65,7 @@ public class IncomeFragment extends Fragment {
         String uid = mUser.getUid();
 
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        recyclerView = myview.findViewById(R.id.recyler_id_income);
+        recyclerView = myview.findViewById(R.id.recycler_id_income);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setReverseLayout(true);

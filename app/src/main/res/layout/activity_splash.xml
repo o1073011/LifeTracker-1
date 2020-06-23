@@ -8,7 +8,7 @@
     tools:context=".SplashActivity">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/titleNote"
         android:layout_width="300dp"
         android:layout_height="180dp"
         android:fontFamily="@font/montserrat_bold"

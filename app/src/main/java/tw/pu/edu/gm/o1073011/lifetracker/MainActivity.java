@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(mAuth.getCurrentUser()!=null){
             startActivity(new Intent (getApplicationContext(),HomeActivity.class));
+            finish();
         }
         mDialog=new ProgressDialog(this);
 
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Login Successful", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            finish();
                         }else {
                             mDialog.dismiss();
                             Toast.makeText(getApplicationContext(),"Login Failed", Toast.LENGTH_SHORT).show();
