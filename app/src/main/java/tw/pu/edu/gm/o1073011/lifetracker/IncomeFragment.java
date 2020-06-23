@@ -32,9 +32,6 @@ public class IncomeFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private TextView incomeTotalSum;
-//    incomeTotalSum = myview.findByViewId(R.id);
-//     incomeTotalSum.setText(stTotalvale);
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,15 +53,19 @@ public class IncomeFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
+        incomeTotalSum = myview.findViewById(R.id.income_txt_result);
 
         mIncomeDatabase.addValueEventListener(new ValueEventListener() {
-            int totlatvalue = 0;
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot mysnapshot : dataSnapshot.getChildren()) {
-//
-//                }
+                int totalvalue = 0;
+
+                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+                    Data data = snapshot.getValue(Data.class);
+                    totalvalue +=data.getAmount();
+                    String stTotalValue = String.valueOf(totalvalue);
+                    incomeTotalSum.setText(stTotalValue);
+                }
             }
 
             @Override
