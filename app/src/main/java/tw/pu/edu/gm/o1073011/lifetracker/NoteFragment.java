@@ -1,11 +1,11 @@
 package tw.pu.edu.gm.o1073011.lifetracker;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +25,6 @@ public class NoteFragment extends Fragment {
 
     private FloatingActionButton fab_add_note;
 
-    private boolean isOpen;
-
-    private FirebaseAuth mAuth;
     private DatabaseReference mNoteDataBase;
 
     private RecyclerView noteRecyclerView;
@@ -48,6 +45,8 @@ public class NoteFragment extends Fragment {
                 noteViewHolder.setContent(note.getContent());
             }
         };
+
+        noteRecyclerView.setAdapter(noteAdapter);
     }
 
     public static class NoteViewHolder extends RecyclerView.ViewHolder{
@@ -79,7 +78,7 @@ public class NoteFragment extends Fragment {
 
         FirebaseUser mUser = mAuth.getCurrentUser();
         String uid = mUser.getUid();
-        mNoteDataBase = FirebaseDatabase.getInstance().getReference().child("Note").child(uid);
+        mNoteDataBase = FirebaseDatabase.getInstance().getReference().child("NoteData").child(uid);
 
         fab_add_note = myView.findViewById(R.id.addNoteFloat);
 
@@ -88,15 +87,20 @@ public class NoteFragment extends Fragment {
         fab_add_note.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //System.out.println("1");
                 Fragment fragment = new AddNoteFragment();
-
-                if (fragment != null) {
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    ft.replace(R.id.main_frame, fragment);
-                    ft.commit();
-                }
+                //System.out.println("2");
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.replace(R.id.main_frame, fragment);
+                ft.commit();
             }
         });
+
+//        LinearLayoutManager layoutManagerNote = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,true);
+//        layoutManagerNote.setStackFromEnd(true);
+        noteRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+        noteRecyclerView.setHasFixedSize(true);
+        //noteRecyclerView.setLayoutManager(layoutManagerNote);
         return myView;
     }
 }
