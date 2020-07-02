@@ -47,74 +47,74 @@ public class AddNoteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Note, NoteViewHolder>adapter = new FirebaseRecyclerAdapter<Note, NoteViewHolder>(
-                Note.class,
-                R.layout.note_view_layout,
-                NoteViewHolder.class,
-                noteDatabase
-        ) {
-            @Override
-            protected void populateViewHolder(NoteViewHolder noteViewHolder, Note note, int i) {
-                noteViewHolder.setTitle(note.getTitle());
-                noteViewHolder.setContent(note.getContent());
-            }
-        };
+//        FirebaseRecyclerAdapter<Note, NoteViewHolder>adapter = new FirebaseRecyclerAdapter<Note, NoteViewHolder>(
+//                Note.class,
+//                R.layout.note_view_layout,
+//                NoteViewHolder.class,
+//                noteDatabase
+//        ) {
+//            @Override
+//            protected void populateViewHolder(NoteViewHolder noteViewHolder, Note note, int i) {
+//                noteViewHolder.setTitle(note.getTitle());
+//                noteViewHolder.setContent(note.getContent());
+//            }
+//        };
     }
 
-    public static class NoteViewHolder extends RecyclerView.ViewHolder{
-        View mView;
+//    public static class NoteViewHolder extends RecyclerView.ViewHolder{
+//        View mView;
+//
+//        public NoteViewHolder(View itemView){
+//            super(itemView);
+//            mView = itemView;
+//        }
+//
+//        public void setTitle(String title){
+//            TextView mTitle = mView.findViewById(R.id.titleNote);
+//            mTitle.setText(title);
+//        }
+//
+//        public void setContent(String content){
+//            TextView mContent = mView.findViewById(R.id.contentNote);
+//            mContent.setText(content);
+//        }
+//    }
 
-        public NoteViewHolder(View itemView){
-            super(itemView);
-            mView = itemView;
-        }
-
-        public void setTitle(String title){
-            TextView mTitle = mView.findViewById(R.id.titleNote);
-            mTitle.setText(title);
-        }
-
-        public void setContent(String content){
-            TextView mContent = mView.findViewById(R.id.contentNote);
-            mContent.setText(content);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        String uid = mUser.getUid();
-        noteDatabase = FirebaseDatabase.getInstance().getReference().child("NoteData").child(uid);
-        View myView =  inflater.inflate(R.layout.fragment_add_note, container, false);
-        edtTitle = myView.findViewById(R.id.addNoteTitle);
-        edtContent = myView.findViewById(R.id.addNoteContent);
-
-        fab_save = myView.findViewById(R.id.fab_save);
-
-        fab_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                title = edtTitle.getText().toString().trim();
-                content = edtContent.getText().toString().trim();
-
-                if (TextUtils.isEmpty(title)){
-                    edtTitle.setError("Required Field");
-                    return;
-                }
-
-                String id = noteDatabase.push().getKey();
-                date = DateFormat.getInstance().format(new Date());
-                Note note = new Note(title, content, date);
-                noteDatabase.child(id).setValue(note);
-
-            }
-        });
-
-        getActivity().getFragmentManager().popBackStack();
-        return myView;
-
-    }
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser mUser = mAuth.getCurrentUser();
+//        String uid = mUser.getUid();
+//        noteDatabase = FirebaseDatabase.getInstance().getReference().child("NoteData").child(uid);
+//        View myView =  inflater.inflate(R.layout.fragment_add_note, container, false);
+//        edtTitle = myView.findViewById(R.id.addNoteTitle);
+//        edtContent = myView.findViewById(R.id.addNoteContent);
+//
+//        fab_save = myView.findViewById(R.id.fab_save);
+//
+//        fab_save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                title = edtTitle.getText().toString().trim();
+//                content = edtContent.getText().toString().trim();
+//
+//                if (TextUtils.isEmpty(title)){
+//                    edtTitle.setError("Required Field");
+//                    return;
+//                }
+//
+//                String id = noteDatabase.push().getKey();
+//                date = DateFormat.getInstance().format(new Date());
+//                Note note = new Note(title, content, date);
+//                noteDatabase.child(id).setValue(note);
+//
+//            }
+//        });
+//
+//        getActivity().getFragmentManager().popBackStack();
+//        return myView;
+//
+//    }
 }

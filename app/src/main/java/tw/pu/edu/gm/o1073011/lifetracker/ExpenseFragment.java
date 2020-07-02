@@ -58,39 +58,39 @@ public class ExpenseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View myview = inflater.inflate(R.layout.fragment_expense, container, false);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        FirebaseUser mUser = mAuth.getCurrentUser();
-        String uid = mUser.getUid();
-
-        mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
-        recyclerView = myview.findViewById(R.id.recyler_id_expense);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        expenseTotalSum = myview.findViewById(R.id.expense_txt_result);
-
-        mExpenseDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int totalvalue = 0;
-                for (DataSnapshot mysnapshot: snapshot.getChildren()){
-                    Data data = mysnapshot.getValue(Data.class);
-                    totalvalue += data.getAmount();
-                    String stTotalValue = String.valueOf(totalvalue);
-                    expenseTotalSum.setText(stTotalValue);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+//
+//        FirebaseUser mUser = mAuth.getCurrentUser();
+//        String uid = mUser.getUid();
+//
+//        mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
+//        recyclerView = myview.findViewById(R.id.recyler_id_expense);
+//
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+//        layoutManager.setReverseLayout(true);
+//        layoutManager.setStackFromEnd(true);
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(layoutManager);
+//
+//        expenseTotalSum = myview.findViewById(R.id.expense_txt_result);
+//
+//        mExpenseDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                int totalvalue = 0;
+//                for (DataSnapshot mysnapshot: snapshot.getChildren()){
+//                    Data data = mysnapshot.getValue(Data.class);
+//                    totalvalue += data.getAmount();
+//                    String stTotalValue = String.valueOf(totalvalue);
+//                    expenseTotalSum.setText(stTotalValue);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
         return myview;
     }
@@ -98,66 +98,66 @@ public class ExpenseFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseRecyclerAdapter<Data, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(
-                Data.class,
-                R.layout.expense_recycler_data,
-                MyViewHolder.class,
-                mExpenseDatabase
-        ) {
-            @Override
-            protected void populateViewHolder(MyViewHolder myViewHolder, final Data data, final int i) {
-                myViewHolder.setType(data.getType());
-                myViewHolder.setNote(data.getNote());
-                myViewHolder.setDate(data.getDate());
-                myViewHolder.setAmmount(data.getAmount());
-                myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        post_key = getRef(i).getKey();
-
-                        type = data.getType();
-                        note = data.getNote();
-                        date = data.getDate();
-                        amount = data.getAmount();
-                        updateDataItem();
-                    }
-                });
-            }
-        };
-        recyclerView.setAdapter(adapter);
+//        FirebaseRecyclerAdapter<Data, MyViewHolder> adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>(
+//                Data.class,
+//                R.layout.expense_recycler_data,
+//                MyViewHolder.class,
+//                mExpenseDatabase
+//        ) {
+//            @Override
+//            protected void populateViewHolder(MyViewHolder myViewHolder, final Data data, final int i) {
+//                myViewHolder.setType(data.getType());
+//                myViewHolder.setNote(data.getNote());
+//                myViewHolder.setDate(data.getDate());
+//                myViewHolder.setAmmount(data.getAmount());
+//                myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        post_key = getRef(i).getKey();
+//
+//                        type = data.getType();
+//                        note = data.getNote();
+//                        date = data.getDate();
+//                        amount = data.getAmount();
+//                        updateDataItem();
+//                    }
+//                });
+//            }
+//        };
+//        recyclerView.setAdapter(adapter);
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-        }
-
-        public void setType(String type) {
-            TextView mType = mView.findViewById(R.id.type_txt_expense);
-            mType.setText(type);
-        }
-
-        public void setNote(String note) {
-            TextView mNote = mView.findViewById(R.id.note_txt_expense);
-            mNote.setText(note);
-        }
-
-        public void setDate(String date) {
-            TextView mDate = mView.findViewById(R.id.date_txt_expense);
-            mDate.setText(date);
-        }
-
-        public void setAmmount(int ammount) {
-
-            TextView mAmmount = mView.findViewById(R.id.ammount_txt_expense);
-            String stammount = String.valueOf(ammount);
-            mAmmount.setText(stammount);
-        }
-
-    }
+//    public static class MyViewHolder extends RecyclerView.ViewHolder {
+//        View mView;
+//
+//        public MyViewHolder(View itemView) {
+//            super(itemView);
+//            mView = itemView;
+//        }
+//
+//        public void setType(String type) {
+//            TextView mType = mView.findViewById(R.id.type_txt_expense);
+//            mType.setText(type);
+//        }
+//
+//        public void setNote(String note) {
+//            TextView mNote = mView.findViewById(R.id.note_txt_expense);
+//            mNote.setText(note);
+//        }
+//
+//        public void setDate(String date) {
+//            TextView mDate = mView.findViewById(R.id.date_txt_expense);
+//            mDate.setText(date);
+//        }
+//
+//        public void setAmmount(int ammount) {
+//
+//            TextView mAmmount = mView.findViewById(R.id.ammount_txt_expense);
+//            String stammount = String.valueOf(ammount);
+//            mAmmount.setText(stammount);
+//        }
+//
+//    }
 
     private void updateDataItem() {
         AlertDialog.Builder mydialog=new AlertDialog.Builder(getActivity());

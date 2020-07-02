@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
@@ -38,11 +39,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+
         setContentView(R.layout.activity_home);
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         toolbar.setTitle("Life Tracker");
         setSupportActionBar(toolbar);
+        getActionBar();
 
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -65,59 +76,59 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         emailtxt.setText(email);
 
-        bottomNavigationView = findViewById(R.id.bottomNavigationBar);
+//        bottomNavigationView = findViewById(R.id.bottomNavigationBar);
         FrameLayout frameLayout = findViewById(R.id.main_frame);
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.dashboard:
-                        setFragment(dashBoardFragment);
-                        //bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
-                        return true;
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.dashboard:
+//                        setFragment(dashBoardFragment);
+//                        //bottomNavigationView.setItemBackgroundResource(R.color.dashboard_color);
+//                        return true;
+//
+//                    case R.id.income:
+//                        setFragment(incomeFragment);
+//                        //bottomNavigationView.setItemBackgroundResource(R.color.income_color);
+//                        return true;
+//
+//                    case R.id.expense:
+//                        setFragment(expenseFragment);
+//                        //bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
+//                        return true;
+//                }
+//
+//                return false;
+//            }
+//        });
 
-                    case R.id.income:
-                        setFragment(incomeFragment);
-                        //bottomNavigationView.setItemBackgroundResource(R.color.income_color);
-                        return true;
-
-                    case R.id.expense:
-                        setFragment(expenseFragment);
-                        //bottomNavigationView.setItemBackgroundResource(R.color.expense_color);
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
-        dashBoardFragment = new DashBoardFragment();
-        incomeFragment = new IncomeFragment();
-        expenseFragment = new ExpenseFragment();
-
-        setFragment(dashBoardFragment);
+//        dashBoardFragment = new DashBoardFragment();
+//        incomeFragment = new IncomeFragment();
+//        expenseFragment = new ExpenseFragment();
+//
+//        setFragment(dashBoardFragment);
     }
 
-    private void setFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.main_frame, fragment);
-        fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-
-        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
-
-        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
-            drawerLayout.closeDrawer(GravityCompat.END);
-        } else {
-            super.onBackPressed();
-        }
-
-    }
-
+//    private void setFragment(Fragment fragment) {
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.replace(R.id.main_frame, fragment);
+//        fragmentTransaction.commit();
+//    }
+//
+//    @Override
+//    public void onBackPressed() {
+//
+//        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+//
+//        if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+//            drawerLayout.closeDrawer(GravityCompat.END);
+//        } else {
+//            super.onBackPressed();
+//        }
+//
+//    }
+//
     public void displaySelectedListener(int itemId) {
         Fragment fragment = null;
 
@@ -153,7 +164,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.closeDrawer(GravityCompat.START);
     }
-
+//
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         displaySelectedListener(item.getItemId());

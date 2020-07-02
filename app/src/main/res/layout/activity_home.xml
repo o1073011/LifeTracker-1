@@ -5,8 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity"
-    >
+    tools:context=".HomeActivity">
 
     <include
         layout="@layout/appbar_layout"
@@ -17,10 +16,8 @@
         android:id="@+id/naView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:layout_gravity="start"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/navmenu"
-        android:layout_gravity="start"/>
-
+        app:menu="@menu/navmenu" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -100,67 +100,67 @@ public class IncomeFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Data, MyViewHolder>adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>
-                (
-                        Data.class,
-                        R.layout.income_recycler_data,
-                        MyViewHolder.class,
-                        mIncomeDatabase
-                ) {
-            @Override
-            protected void populateViewHolder(MyViewHolder myViewHolder, final Data data, final int i) {
-                myViewHolder.setType(data.getType());
-                myViewHolder.setNote(data.getNote());
-                myViewHolder.setDate(data.getDate());
-                myViewHolder.setAmmount(data.getAmount());
-                myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        post_key = getRef(i).getKey();
-
-                        type = data.getType();
-                        note = data.getNote();
-                        date = data.getDate();
-                        amount = data.getAmount();
-                        updateDataItem();
-                    }
-                });
-            }
-        };
-        recyclerView.setAdapter(adapter);
+//        FirebaseRecyclerAdapter<Data, MyViewHolder>adapter = new FirebaseRecyclerAdapter<Data, MyViewHolder>
+//                (
+//                        Data.class,
+//                        R.layout.income_recycler_data,
+//                        MyViewHolder.class,
+//                        mIncomeDatabase
+//                ) {
+//            @Override
+//            protected void populateViewHolder(MyViewHolder myViewHolder, final Data data, final int i) {
+//                myViewHolder.setType(data.getType());
+//                myViewHolder.setNote(data.getNote());
+//                myViewHolder.setDate(data.getDate());
+//                myViewHolder.setAmmount(data.getAmount());
+//                myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        post_key = getRef(i).getKey();
+//
+//                        type = data.getType();
+//                        note = data.getNote();
+//                        date = data.getDate();
+//                        amount = data.getAmount();
+//                        updateDataItem();
+//                    }
+//                });
+//            }
+//        };
+//        recyclerView.setAdapter(adapter);
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-        }
-
-        public void setType(String type) {
-            TextView mType = mView.findViewById(R.id.type_txt_income);
-            mType.setText(type);
-        }
-
-        public void setNote(String note) {
-            TextView mNote = mView.findViewById(R.id.note_txt_income);
-            mNote.setText(note);
-        }
-
-        public void setDate(String date) {
-            TextView mDate = mView.findViewById(R.id.date_txt_income);
-            mDate.setText(date);
-        }
-
-        public void setAmmount(int ammount) {
-
-            TextView mAmmount = mView.findViewById(R.id.ammount_txt_income);
-            String stammount = String.valueOf(ammount);
-            mAmmount.setText(stammount);
-        }
-
-    }
+//    public static class MyViewHolder extends RecyclerView.ViewHolder {
+//        View mView;
+//
+//        public MyViewHolder(View itemView) {
+//            super(itemView);
+//            mView = itemView;
+//        }
+//
+//        public void setType(String type) {
+//            TextView mType = mView.findViewById(R.id.type_txt_income);
+//            mType.setText(type);
+//        }
+//
+//        public void setNote(String note) {
+//            TextView mNote = mView.findViewById(R.id.note_txt_income);
+//            mNote.setText(note);
+//        }
+//
+//        public void setDate(String date) {
+//            TextView mDate = mView.findViewById(R.id.date_txt_income);
+//            mDate.setText(date);
+//        }
+//
+//        public void setAmmount(int ammount) {
+//
+//            TextView mAmmount = mView.findViewById(R.id.ammount_txt_income);
+//            String stammount = String.valueOf(ammount);
+//            mAmmount.setText(stammount);
+//        }
+//
+//    }
 
     private void updateDataItem(){
         AlertDialog.Builder mydialog = new AlertDialog.Builder(getActivity());

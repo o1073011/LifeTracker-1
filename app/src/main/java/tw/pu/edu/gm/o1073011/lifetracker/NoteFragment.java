@@ -33,40 +33,40 @@ public class NoteFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Note, NoteViewHolder> noteAdapter = new FirebaseRecyclerAdapter<Note, NoteViewHolder>(
-                Note.class,
-                R.layout.note_view_layout,
-                NoteViewHolder.class,
-                mNoteDataBase
-        ) {
-            @Override
-            protected void populateViewHolder(NoteViewHolder noteViewHolder, Note note, int i) {
-                noteViewHolder.setTitle(note.getTitle());
-                noteViewHolder.setContent(note.getContent());
-            }
-        };
-
-        noteRecyclerView.setAdapter(noteAdapter);
+//        FirebaseRecyclerAdapter<Note, NoteViewHolder> noteAdapter = new FirebaseRecyclerAdapter<Note, NoteViewHolder>(
+//                Note.class,
+//                R.layout.note_view_layout,
+//                NoteViewHolder.class,
+//                mNoteDataBase
+//        ) {
+//            @Override
+//            protected void populateViewHolder(NoteViewHolder noteViewHolder, Note note, int i) {
+//                noteViewHolder.setTitle(note.getTitle());
+//                noteViewHolder.setContent(note.getContent());
+//            }
+//        };
+//
+//        noteRecyclerView.setAdapter(noteAdapter);
     }
 
-    public static class NoteViewHolder extends RecyclerView.ViewHolder{
-        View mView;
-
-        public NoteViewHolder(View itemView){
-            super(itemView);
-            mView = itemView;
-        }
-
-        public void setTitle(String title){
-            TextView mTitle = mView.findViewById(R.id.titleNote);
-            mTitle.setText(title);
-        }
-
-        public void setContent(String content){
-            TextView mTitle = mView.findViewById(R.id.contentNote);
-            mTitle.setText(content);
-        }
-    }
+//    public static class NoteViewHolder extends RecyclerView.ViewHolder{
+//        View mView;
+//
+//        public NoteViewHolder(View itemView){
+//            super(itemView);
+//            mView = itemView;
+//        }
+//
+//        public void setTitle(String title){
+//            TextView mTitle = mView.findViewById(R.id.titleNote);
+//            mTitle.setText(title);
+//        }
+//
+//        public void setContent(String content){
+//            TextView mTitle = mView.findViewById(R.id.contentNote);
+//            mTitle.setText(content);
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
