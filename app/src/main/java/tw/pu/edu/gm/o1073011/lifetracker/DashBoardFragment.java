@@ -45,7 +45,7 @@ public class DashBoardFragment extends Fragment {
     private FloatingActionButton fab_expense_btn;
     private FloatingActionButton fab_main_btn;
 
-    //Floating button textview
+    //Floating button_shape textview
     private TextView fab_income_txt;
     private TextView fab_expense_txt;
 
@@ -115,7 +115,7 @@ public class DashBoardFragment extends Fragment {
 //        mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
 //        mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
 //
-//        //Floating button
+//        //Floating button_shape
 //        fab_main_btn = myview.findViewById(R.id.fb_main_plus_btn);
 //        fab_income_btn = myview.findViewById(R.id.income_Ft_btn);
 //        fab_expense_btn = myview.findViewById(R.id.expense_Ft_btn);

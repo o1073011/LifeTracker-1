@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary2">#20639B</color>
+    <color name="colorPrimaryDarkerVariant">#0A1A27</color>
     <color name="colorPrimaryDark2">#173F5F</color>
+    <color name="colorPrimaryDarkVariant">#2B5375</color>
+    <color name="colorPrimaryDarkHint">#4B708F</color>
+    <color name="colorPrimaryDarkCursor">#7291AA</color>
+    <color name="colorPrimaryDarkHighlight">#A8BED0</color>
     <color name="colorSecondary2">#F6D55C</color>
     <color name="colorSecondaryDark2">#ED553B</color>
     <color name="colorAccent2">#3CAEA3</color>
-    <color name="colorHint">#7D96AC</color>
+    <color name="colorAccentVariant">#61C8BD</color>
 
     <color name="toolbar_color">#FFCD36</color>
     <color name="nav_header">#FFEAA00C</color>

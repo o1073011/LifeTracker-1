@@ -5,20 +5,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_1440"
-    android:backgroundTintMode="multiply"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/registeractbtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_signup"
+        android:elevation="4dp"
+        android:fontFamily="@font/lato"
+        android:text="REGISTER"
+        android:textColor="@color/colorPrimaryDark2"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/loginactbtn"
+        app:layout_constraintVertical_chainStyle="packed" />
+
     <TextView
         android:id="@+id/welcome_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato_black"
         android:text="Welcome"
-        android:textColor="@color/colorPrimaryDark2"
-        android:textSize="64sp"
+        android:textAllCaps="true"
+        android:textColor="@color/colorPrimaryDarkerVariant"
+        android:textSize="52sp"
+        app:layout_constraintBottom_toTopOf="@id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:fontFamily="@font/lato"
+        android:lineSpacingExtra="0sp"
+        android:text="@string/welcome"
+        android:textColor="@color/colorPrimaryDark2"
+        android:textSize="18sp"
+        android:typeface="normal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_text" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -35,43 +69,22 @@
         app:layout_constraintGuide_percent="0.1" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailedt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <Button
+        android:id="@+id/loginactbtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/continuebtn"
-        app:layout_constraintEnd_toStartOf="@+id/guideline5"
-        app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/welcome_text"
-        app:layout_constraintVertical_bias="0.65"
-        app:layout_constraintVertical_chainStyle="packed">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/continuebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/button"
-        android:backgroundTint="@color/colorPrimaryDark2"
-        android:elevation="4dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_signin"
         android:fontFamily="@font/lato"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingEnd="20dp"
-        android:paddingRight="20dp"
-        android:text="CONTINUE"
+        android:text="SIGN IN"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/registeractbtn"
+        app:layout_constraintEnd_toStartOf="@+id/guideline5"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.65"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -79,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.9" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
