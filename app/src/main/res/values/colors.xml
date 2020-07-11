@@ -8,8 +8,8 @@
     <color name="colorPrimaryDarkCursor">#7291AA</color>
     <color name="colorPrimaryDarkHighlight">#A8BED0</color>
     <color name="colorSecondary2">#F6D55C</color>
-    <color name="colorSecondaryDark2">#ED553B</color>
-    <color name="colorAccent2">#3CAEA3</color>
+    <color name="colorSecondaryDark2">#3CAEA3</color>
+    <color name="colorAccent2">#ED553B</color>
     <color name="colorAccentVariant">#61C8BD</color>
 
     <color name="toolbar_color">#FFCD36</color>

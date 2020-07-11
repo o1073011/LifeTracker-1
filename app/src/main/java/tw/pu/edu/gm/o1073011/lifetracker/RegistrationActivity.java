@@ -16,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -49,7 +51,7 @@ public class RegistrationActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark2));
         setContentView(R.layout.activity_registration);
 
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         //mDialog=new ProgressDialog(this);
 
         registration();
@@ -59,7 +61,6 @@ public class RegistrationActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.email_reg);
         mPass = findViewById(R.id.password_reg);
         btnReg = findViewById(R.id.btn_reg);
-        mSignin = findViewById(R.id.signin_here);
 
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,30 +81,23 @@ public class RegistrationActivity extends AppCompatActivity {
                 //mDialog.setMessage("Processing...");
                 //mDialog.show();
 
-                mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
-                            //mDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"Registration Completed", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                        }else{
-                            //mDialog.dismiss();
-                            Toast.makeText(getApplicationContext(),"Registration Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+                mAuth.createUserWithEmailAndPassword(email, pass)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    //mDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Registration Completed", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                    //mDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "Email has been used", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
-            }
-        });
 
-        mSignin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                finish();
             }
         });
     }
