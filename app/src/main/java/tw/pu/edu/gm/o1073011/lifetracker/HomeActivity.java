@@ -103,18 +103,18 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 //            }
 //        });
 
-//        dashBoardFragment = new DashBoardFragment();
-//        incomeFragment = new IncomeFragment();
-//        expenseFragment = new ExpenseFragment();
-//
-//        setFragment(dashBoardFragment);
+        dashBoardFragment = new DashBoardFragment();
+        incomeFragment = new IncomeFragment();
+        expenseFragment = new ExpenseFragment();
+
+        setFragment(dashBoardFragment);
     }
 
-//    private void setFragment(Fragment fragment) {
-//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.main_frame, fragment);
-//        fragmentTransaction.commit();
-//    }
+    private void setFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.commit();
+    }
 //
 //    @Override
 //    public void onBackPressed() {

@@ -12,9 +12,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,6 +25,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     EditText email;
     EditText password;
     Button login;
+    String eml;
+    String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
-        email = findViewById(R.id.email_reg);
-        password = findViewById(R.id.password_reg);
+        email = findViewById(R.id.email_edt);
+        password = findViewById(R.id.pwd_edt);
         login = findViewById(R.id.signinbtn);
 
         login.setOnClickListener(this);
@@ -38,10 +43,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        String eml = email.getText().toString().trim();
-        String pass = password.getText().toString().trim();
+        eml = email.getText().toString().trim();
+        pass = password.getText().toString().trim();
 
-        if (TextUtils.isEmpty(eml) ) {
+        if (TextUtils.isEmpty(eml)) {
             email.setError("Email Required");
             return;
         }
@@ -51,17 +56,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             return;
         }
 
-        auth.signInWithEmailAndPassword(eml,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(),"Sign In Successfull", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                }else{
-                    Toast.makeText(getApplicationContext(),"Sign In Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        auth.signInWithEmailAndPassword(eml, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(getApplicationContext(), "Sign In Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        if (e instanceof FirebaseAuthInvalidUserException){
+                            Toast.makeText(getApplicationContext(), "Wrong Email", Toast.LENGTH_SHORT).show();
+                        } else if (e instanceof FirebaseAuthInvalidCredentialsException){
+                            Toast.makeText(getApplicationContext(), "Wrong Password", Toast.LENGTH_SHORT).show();
+                        } else
+                        Toast.makeText(getApplicationContext(), "Sign In Fail", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
